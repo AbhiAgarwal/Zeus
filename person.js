@@ -13,11 +13,11 @@ var person = {
 	speaker: 'Daniel', // check to see if this is already installed on your Computer (OSX)
 	computer: 'Abhi', // The name of the computer you're currently on
 	// Twitter Person Configuration
-	twitter_access_token: "15308142-TmN9IBjKux7q5Ur5qUGbyLoQRaRln2QsMA0hKeLij",
-	twitter_access_token_secret: "vql7ceG2HR7rU8cKYFzoe4qJAKZ0OM6Dhzj3Lum6rQQ",
-	twitter_name: "AbhiAgarwal",
-	facebook_ID: "522496534",
-	facebook_IDName: "abhi.net"
+	twitter_access_token: "",
+	twitter_access_token_secret: "",
+	twitter_name: "",
+	facebook_ID: "",
+	facebook_IDName: ""
 };
 
 exports.person = person;

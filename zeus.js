@@ -30,11 +30,11 @@ var person = {
 	language: "English", // Language the person is in
 	computer: "Abhi", // The name of the computer you're currently on
 	// Twitter Person Configuration
-	twitter_access_token: "15308142-TmN9IBjKux7q5Ur5qUGbyLoQRaRln2QsMA0hKeLij",
-	twitter_access_token_secret: "vql7ceG2HR7rU8cKYFzoe4qJAKZ0OM6Dhzj3Lum6rQQ",
-	twitter_name: "AbhiAgarwal",
-	facebook_ID: "522496534",
-	facebook_IDName: "abhi.net"
+	twitter_access_token: "",
+	twitter_access_token_secret: "",
+	twitter_name: "",
+	facebook_ID: "",
+	facebook_IDName: ""
 };
 
 // Loading functions and main settings at the beginning,
@@ -77,21 +77,21 @@ Timer.prototype.total = function(){
 // API Keys for different applications
 var apiKeys = {
 	// Forecast.IO Authentication Key
-	forecastIO: '4a62610efb908bf2e7f5dc8a6dd7c061',
+	forecastIO: '',
 	// Mindwave (own API key - not from mindwave server) API Key
-	mindwave: '0fc4141b4b45c675cc8d3a765b8d71c5bde9390',
+	mindwave: '',
 	// Twitter Authentication Keys
-	twitter_consumer_key: "CUeBgKEgCHVGnqO7dRTLA",
-	twitter_consumer_secret: "SGUTlY4dP3aV27lC0kv63rUitYDLlJI11aHVsGmn4",
-	twilio_SID: "ACd44100ff63d9f063b149272c1c9b8f64",
-	twilio_AUTH: "372306737e389b83729d9d7f5c0fe1e2",
+	twitter_consumer_key: "",
+	twitter_consumer_secret: "",
+	twilio_SID: "",
+	twilio_AUTH: "",
 	// Facebook Authentication Keys
 	facebook_appID: "",
 	facebook_appSecret: "",
 	facebook_accessToken: "",
 	// Email Authentication Keys
-	email_user: "zeusdwarika@gmail.com",
-	email_pass: "cRag5QAd",
+	email_user: "",
+	email_pass: "",
 	email_host: "smtp.gmail.com",
 	email_port: 465,
 	email_ssl: true
