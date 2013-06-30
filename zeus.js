@@ -12,23 +12,30 @@ growl = require('growl'),
 http = require('http'),
 server = require('./server/http_server'),
 time = require('time')(Date),
-fs = require('fs-extra');
+fs = require('fs-extra'),
+async = require('async');
+
+var personal_details = {
+	full_name: "", // Full Name
+	first_name: "", // First Name
+	last_name: "", // Last Name
+};
 
 // Creating & Declearing the person using this
 var person = {
 	// Personal Details
-	full_name: "Abhi Agarwal", // Full Name
-	first_name: "Abhi", // First Name
-	last_name: "Agarwal", // Last Name
+	full_name: personal_details.full_name, // Full Name
+	first_name: personal_details.first_name, // First Name
+	last_name: personal_details.last_name, // Last Name
 	// City Details
-	city: "Bangkok", // City you live in
-	country: "Thailand", // Country you live in
+	city: "", // City you live in
+	country: "", // Country you live in
 	latitude: 13.45, // LAT of your city
 	longitude: 100.30, // LANG of your city
 	// Speaker Details
-	speaker: "Daniel", // check to see if this is already installed on your Computer (OSX)
-	language: "English", // Language the person is in
-	computer: "Abhi", // The name of the computer you're currently on
+	speaker: "", // check to see if this is already installed on your Computer (OSX)
+	language: "", // Language the person is in
+	computer: "", // The name of the computer you're currently on
 	// Twitter Person Configuration
 	twitter_access_token: "",
 	twitter_access_token_secret: "",
@@ -40,10 +47,13 @@ var person = {
 // Loading functions and main settings at the beginning,
 // before launching the web application
 function run() {
-	// weather files need to be configured so they are ready to be said to the user at the start
-	get_weather();
-	// this is the server file running the web client that will interact with the Java protocol
-	server.run();
+	// We want the code to run in series so the configuration is loaded before it runs the server
+	async.series([
+		// weather files need to be configured so they are ready to be said to the user at the start
+		get_weather(),
+		// this is the server file running the web client that will interact with the Java protocol
+		server.run()
+	]);
 }
 
 // Support Functions
@@ -89,7 +99,7 @@ var apiKeys = {
 	facebook_appID: "",
 	facebook_appSecret: "",
 	facebook_accessToken: "",
-	// Email Authentication Keys
+	// Email Authentication Keys, Gmail Settings
 	email_user: "",
 	email_pass: "",
 	email_host: "smtp.gmail.com",
@@ -127,6 +137,10 @@ var say_generalStartup = function() {
 	say.speak(person.speaker, "Goodmorning Mr. " + person.last_name + ".");
 };
 
+var say_yessir = function() {
+	say.speak(person.speaker, "Yes Sir?");
+};
+
 // Weather configuration
 // Weather Setting
 var weather = {
@@ -140,9 +154,11 @@ var weather = {
 var set_weather = function() {
 	jquery.getJSON('https://api.forecast.io/forecast/'+ apiKeys.forecastIO + '/' + person.latitude + ',' + person.longitude, function(data) {
 		fs.writeJson('./files/weather' + datetime + '.json', data, function(err){
-			if(err){
-				console.log(err);
-			}
+			if(err){ console.log(err);}
+			weather.time = datetime;
+			weather.summary = data.currently.summary;
+			weather.temperature = String(convert_fahrenheitTocelsius(String(data.currently.temperature)));
+			weather.file = true;
 		});
 	});
 };
@@ -153,10 +169,12 @@ var get_weather = function() {
 		if(err){
 			set_weather();
 		}
-		weather.time = datetime;
-		weather.summary = data.currently.summary;
-		weather.temperature = String(convert_fahrenheitTocelsius(String(data.currently.temperature)));
-		weather.file = true;
+		else {
+			weather.time = datetime;
+			weather.summary = data.currently.summary;
+			weather.temperature = String(convert_fahrenheitTocelsius(String(data.currently.temperature)));
+			weather.file = true;
+		}
 	});
 };
 
@@ -243,7 +261,7 @@ var twitter_WhatsHappeningInTheWorld = function(){
 var twilio_SendSMS = function(message_number, message_body) {
 	client.sms.messages.create({
 		to: message_number,
-		from: '+14423337001',
+		from: '',
 		body: message_body
 		}, function(error, message) {
 			if (!error) {
@@ -295,3 +313,5 @@ exports.say_fullStartup = say_fullStartup;
 exports.say_generalStartup = say_generalStartup;
 exports.say_getWeather = say_getWeather;
 exports.weather = weather;
+exports.say_yessir = say_yessir;
+exports.personal_details = personal_details;
