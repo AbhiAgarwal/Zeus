@@ -1,0 +1,8 @@
+/**
+ * Sphinx4 Commands
+ */
+
+grammar zeus_commands;
+
+public <zeus_control> = (Zeus);
+public <question_control> = (How is the) (Weather);
