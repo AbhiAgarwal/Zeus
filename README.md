@@ -9,4 +9,4 @@ To run:
         - node zeus.js
 
     - compile sphinx4 code, and run:
-        - java -mx256m -jar bin/FlatVoiceCommands.jar
+        - java -mx256m -jar bin/ZeusCommands.jar
